@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import "package:hive_flutter/hive_flutter.dart";
-import "package:todo_app_1/pages/home_page.dart";
+import "package:Simple_Todo_App/pages/home_page.dart";
 
 void main() async{
   

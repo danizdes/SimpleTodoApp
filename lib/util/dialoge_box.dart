@@ -3,17 +3,18 @@ import "package:Simple_Todo_App/util/my_button.dart";
 
 class DialogeBox extends StatelessWidget {
   final controller;
+  final controller_desc;
   final VoidCallback onSaved;
   final VoidCallback onCancel;
 
-  DialogeBox({super.key, required this.controller, required this.onCancel, required this.onSaved});
+  DialogeBox({super.key, required this.controller, required this.onCancel, required this.onSaved, required this.controller_desc});
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: Colors.blueGrey,
       content: Container( 
-        height: 200,
+        height: 250,
         width: 300,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -26,13 +27,29 @@ class DialogeBox extends StatelessWidget {
               ),
             ),
 
-            // Get User Input
+            // Get User Input (task)
             TextField(
               maxLength: 18,
               controller: controller,
               cursorColor: Colors.black,
               decoration: InputDecoration(
-                hintText: "Go get groceries",
+                hintText: "Task Name",
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 2.0), // Unfocused border
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 2.0), // Focused border
+                ),
+              ),
+            ),
+
+            // Get User Input (Description)
+            TextField(
+              maxLength: 34,
+              controller: controller_desc,
+              cursorColor: Colors.black,
+              decoration: InputDecoration(
+                hintText: "Task Description",
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.black, width: 2.0), // Unfocused border
                 ),

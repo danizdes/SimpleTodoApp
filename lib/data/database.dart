@@ -4,14 +4,14 @@ class TodoDatabase {
 
   List todos = [];
 
-   // Reference the box
-  final _todos = Hive.box ("todos");
+  // Reference the box
+  final _todos = Hive.box("todos");
 
   // Run this method if first time opening this app
   void createInitData() {
     todos = [
-      ["Read 10 pages", false],
-      ["Go out for a walk", false],
+      ["Read 10 pages", "From the book 48 Laws of power", false],
+      ["Go out for a walk", "Only go for 10 minutes!", false],
     ];
   }
 

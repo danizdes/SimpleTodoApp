@@ -19,6 +19,9 @@ class _HomePageState extends State<HomePage> {
   // Text controller
   final _controller = TextEditingController();
 
+  // Text controller
+  final _controller_desc = TextEditingController();
+
   // When the app runs
   @override
   void initState() {
@@ -26,9 +29,9 @@ class _HomePageState extends State<HomePage> {
     // If this is the first time ever opening the app, then create default data
     if (_todos.get("TODOLIST") == null) {
       db.createInitData();
+      db.updateData();
     }else {
       // Not the first time the data exists
-
       db.loadData();
     }
     super.initState();
@@ -38,9 +41,11 @@ class _HomePageState extends State<HomePage> {
   // Function that saved new task
   void saveNewTask() {
     setState(() {
-      db.todos.add([_controller.text, false]);
+      db.todos.add([_controller.text, _controller_desc.text, false]);
       _controller.clear();
+      _controller_desc.clear();
     });
+
     Navigator.of(context).pop();
     db.updateData();
   }
@@ -48,7 +53,7 @@ class _HomePageState extends State<HomePage> {
   // Function changing the checkbox
   void changeCheckBox(bool? value, int index) { 
     setState(() {
-    db.todos[index][1] = !db.todos[index][1];
+    db.todos[index][2] = !db.todos[index][2];
     });
     db.updateData();
   }
@@ -60,6 +65,7 @@ class _HomePageState extends State<HomePage> {
       builder: (context) {
         return DialogeBox(
           controller: _controller,
+          controller_desc: _controller_desc,
           onCancel: () => Navigator.of(context).pop(),
           onSaved: saveNewTask,
           ); 
@@ -96,7 +102,8 @@ class _HomePageState extends State<HomePage> {
         itemBuilder:(context, index) {
           return ToDoTile(
             taskName: db.todos[index][0], 
-            checked: db.todos[index][1], 
+            taskDesc: db.todos[index][1],
+            checked:  db.todos[index][2],
             onChanged: (value) => changeCheckBox(value, index),
             deleteFunction: (context) => deleteTask(index),
             );
